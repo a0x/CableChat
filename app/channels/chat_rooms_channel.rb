@@ -1,6 +1,6 @@
 class ChatRoomsChannel < ApplicationCable::Channel
   def subscribed
-    stream_form "chat_rooms_#{params['chat_room_id']}_channel"
+    stream_from "chat_rooms_#{params['chat_room_id']}_channel"
   end
 
   def unsubscribed
@@ -9,6 +9,6 @@ class ChatRoomsChannel < ApplicationCable::Channel
 
   def send_message(data)
     # process data sent from the page
-    current_user.messages.created!(body: data['message'], chat_room_id: data['chat_room_id'])
+    current_user.messages.create!(body: data['message'], chat_room_id: data['chat_room_id'])
   end
 end
